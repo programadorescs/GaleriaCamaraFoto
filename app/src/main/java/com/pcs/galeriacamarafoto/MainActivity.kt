@@ -122,11 +122,9 @@ class MainActivity : AppCompatActivity() {
                         binding.ivFoto.setImageBitmap(bitmap)
                     }*/
 
-                    android.util.Log.e("URI_REAL", uriFoto.toString())
-
                     binding.ivFoto.setImageURI(uriFoto)
 
-                    mostrarMensaje("RUTA_REAL", obtenerRutaDesdeUri(it.data?.data!!))
+                    //mostrarMensaje("RUTA_REAL", obtenerRutaDesdeUri(it.data?.data!!))
                 } catch (e: Exception) {
                     android.util.Log.e("ERROR", e.message.toString())
                     mostrarMensaje("ERROR", e.message.toString())
@@ -241,8 +239,7 @@ class MainActivity : AppCompatActivity() {
                     this,
                     "Necesita otorgar permiso de escritura al sd",
                     Toast.LENGTH_LONG
-                )
-                    .show()
+                ).show()
             }
         }
 }
