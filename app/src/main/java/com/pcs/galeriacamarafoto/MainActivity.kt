@@ -88,45 +88,13 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun obtenerRutaDesdeUri(uri: Uri): String {
-        var resultado = uri.path.toString()
-
-        val cursor = this.contentResolver.query(uri, null, null, null, null)
-
-        if (cursor != null) {
-            cursor.moveToFirst()
-            val indiceColumna = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            resultado = cursor.getString(indiceColumna)
-            cursor.close()
-        }
-
-        return resultado
-    }
-
     private val abrirGaleria =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 try {
                     uriFoto = it.data?.data
-
-                    //Imagen en mapa de bit
-                    /*if(Build.VERSION.SDK_INT < 28) {
-                        val bitmap = MediaStore.Images.Media.getBitmap(
-                            this.contentResolver,
-                            uriFoto
-                        )
-                        binding.ivFoto.setImageBitmap(bitmap)
-                    } else {
-                        val source = ImageDecoder.createSource(this.contentResolver, uriFoto!!)
-                        val bitmap = ImageDecoder.decodeBitmap(source)
-                        binding.ivFoto.setImageBitmap(bitmap)
-                    }*/
-
                     binding.ivFoto.setImageURI(uriFoto)
-
-                    //mostrarMensaje("RUTA_REAL", obtenerRutaDesdeUri(it.data?.data!!))
                 } catch (e: Exception) {
-                    android.util.Log.e("ERROR", e.message.toString())
                     mostrarMensaje("ERROR", e.message.toString())
                 }
             }
@@ -172,7 +140,6 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             mostrarMensaje("ERROR", e.message.toString())
         }
-
     }
 
     private val startForResultCamara =
